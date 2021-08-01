@@ -41,7 +41,7 @@ resource "azurerm_storage_account" "mainstorage" {
   network_rules {
     default_action             = "Deny"
     ip_rules                   = [var.home_ip]
-    virtual_network_subnet_ids = [azurerm_virtual_network.vnets[0].subnet.*.id[2]]
+    #virtual_network_subnet_ids = [azurerm_virtual_network.vnets[0].subnet.*.id[2]]
   }
   tags = var.tags
 }
@@ -99,7 +99,7 @@ resource "azurerm_virtual_network_gateway" "vpngw" {
     name                          = "vnetGatewayConfig"
     public_ip_address_id          = azurerm_public_ip.vnetgwip.id
     private_ip_address_allocation = "Dynamic"
-    #subnet_id                     = azurerm_virtual_network.vnets[0].subnet.*.id[0]
+    subnet_id                     = azurerm_virtual_network.vnets[0].subnet.*.id[0]
   }
 
   tags = var.tags
