@@ -1,3 +1,6 @@
+variable "tags" {
+  description = "List of tags to be applied to all resources"
+}
 variable "main_rg_name" {
   type        = string
   description = "The name of the RG to host resources"
