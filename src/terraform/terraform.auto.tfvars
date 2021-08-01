@@ -20,6 +20,10 @@ vnets = [
       {
         name    = "VMs"
         address = "172.20.10.0/24"
+      },
+      {
+        name    = "Storage"
+        address = "172.20.8.0/24"
       }
     ]
   }

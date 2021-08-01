@@ -27,7 +27,9 @@ resource "azurerm_storage_account" "mainstorage" {
   is_hns_enabled            = true
 
   network_rules {
-    default_action = "Deny"
+    default_action             = "Deny"
+    ip_rules                   = [var.home_ip]
+    virtual_network_subnet_ids = [azurerm_virtual_network.vnets[0].subnet.*.id[2]]
   }
 
   tags = var.tags
