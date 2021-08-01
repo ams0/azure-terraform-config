@@ -5,7 +5,7 @@ locals {
         network_key = network_key
         name        = subnet.name
         prefix      = subnet.prefix
-        vnet_name   = network.vnet_name[0]
+        vnet_name   = network.vnet_name
       }
     ]
   ])
