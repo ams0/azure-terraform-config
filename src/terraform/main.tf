@@ -66,6 +66,11 @@ resource "azurerm_virtual_network" "vnets" {
 }
 
 resource "azurerm_subnet" "subnets" {
+
+  depends_on = [
+    azurerm_virtual_network.vnets
+  ]
+
   count = length(local.network_subnets)
 
   name                 = local.network_subnets[count.index].name
