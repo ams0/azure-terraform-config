@@ -71,7 +71,7 @@ resource "azurerm_subnet" "subnets" {
   name                 = local.network_subnets[count.index].name
   virtual_network_name = local.network_subnets[count.index].vnet_name
   resource_group_name  = azurerm_resource_group.resources.name
-  address_prefixes     = local.network_subnets[count.index].prefix
+  address_prefixes     = [local.network_subnets[count.index].prefix]
 
   service_endpoints = local.network_subnets[count.index].service_endpoints
 }
