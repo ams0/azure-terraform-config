@@ -15,11 +15,13 @@ variable "pubkey" {
   description = "SSH Public key"
 }
 
-variable "k8svnet_space" {
-  description = "The address space of the k8s vnet"
-}
-
-variable "k8svnet_name" {
-  type        = string
-  description = "The name of the k8s vnet"
+variable "vnets" {
+  type = list(object({
+    vnet_name     = string
+    address_space = list(string)
+    subnets = list(object({
+      name    = string
+      address = string
+    }))
+  }))
 }

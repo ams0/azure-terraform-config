@@ -15,12 +15,24 @@ resource "azurerm_ssh_public_key" "pubkey" {
 
 }
 
-resource "azurerm_virtual_network" "k8svnet" {
-  name                = var.k8svnet_name
+resource "azurerm_virtual_network" "vnets" {
+  count = length(var.vnets)
+
+  name                = var.vnets[count.index].vnet_name
   resource_group_name = azurerm_resource_group.resources.name
   location            = azurerm_resource_group.resources.location
-  address_space       = var.k8svnet_space
+  address_space       = var.vnets[count.index].address_space
+
+  dynamic "subnet" {
+    for_each = var.vnets[count.index].subnets
+
+    content {
+      name           = subnet.value.name
+      address_prefix = subnet.value.address
+    }
+  }
 
   tags = var.tags
 
 }
+
