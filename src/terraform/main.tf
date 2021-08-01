@@ -26,6 +26,10 @@ resource "azurerm_storage_account" "mainstorage" {
   enable_https_traffic_only = false
   is_hns_enabled            = true
 
+  network_rules {
+    default_action = "Deny"
+  }
+
   tags = var.tags
 
 }
