@@ -15,7 +15,7 @@ resource "azurerm_ssh_public_key" "pubkey" {
 
 }
 
-resource "azurerm_storage_account" "storeme" {
+resource "azurerm_storage_account" "mainstorage" {
   name                     = var.storage_name
   resource_group_name      = azurerm_resource_group.resources.name
   location                 = azurerm_resource_group.resources.location
@@ -29,6 +29,13 @@ resource "azurerm_storage_account" "storeme" {
   tags = var.tags
 
 }
+
+resource "azurerm_storage_share" "cloudshell" {
+  name                 = "cloudshell"
+  storage_account_name = azurerm_storage_account.mainstorage.name
+  quota                = 50
+}
+
 
 resource "azurerm_virtual_network" "vnets" {
   count = length(var.vnets)
