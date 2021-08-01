@@ -92,6 +92,6 @@ resource "azurerm_virtual_network_gateway_connection" "homevpn" {
   virtual_network_gateway_id = azurerm_virtual_network_gateway.vpngw.id
   local_network_gateway_id   = azurerm_local_network_gateway.home.id
 
-  shared_key = random_string.sharedsecret
+  shared_key = random_string.sharedsecret.result
 
 }
