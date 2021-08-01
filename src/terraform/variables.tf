@@ -25,3 +25,8 @@ variable "vnets" {
     }))
   }))
 }
+
+variable "home_ip" {
+  type        = string
+  description = "My home IP (set in Terraform Cloud)"
+}
