@@ -16,7 +16,7 @@ resource "azurerm_ssh_public_key" "pubkey" {
 }
 
 resource "azurerm_storage_account" "storeme" {
-  name                     = "storeme"
+  name                     = var.storage_name
   resource_group_name      = azurerm_resource_group.resources.name
   location                 = azurerm_resource_group.resources.location
   account_tier             = "Standard"
