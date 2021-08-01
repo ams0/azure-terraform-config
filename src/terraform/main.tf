@@ -15,6 +15,21 @@ resource "azurerm_ssh_public_key" "pubkey" {
 
 }
 
+resource "azurerm_storage_account" "storeme" {
+  name                     = "storeme"
+  resource_group_name      = azurerm_resource_group.resources.name
+  location                 = azurerm_resource_group.resources.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+
+  nfsv3_enabled             = true
+  enable_https_traffic_only = false
+  is_hns_enabled            = true
+
+  tags = var.tags
+
+}
+
 resource "azurerm_virtual_network" "vnets" {
   count = length(var.vnets)
 
