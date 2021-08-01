@@ -20,8 +20,9 @@ variable "vnets" {
     vnet_name     = string
     address_space = list(string)
     subnets = list(object({
-      name   = string
-      prefix = string
+      name              = string
+      prefix            = string
+      service_endpoints = list(string)
     }))
   }))
 }
