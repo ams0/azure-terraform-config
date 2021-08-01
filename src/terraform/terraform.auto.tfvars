@@ -14,16 +14,16 @@ vnets = [
     address_space = ["172.20.0.0/16"]
     subnets = [
       {
-        name    = "GatewaySubnet"
-        address = "172.20.1.0/24"
+        name   = "GatewaySubnet"
+        prefix = "172.20.1.0/24"
       },
       {
-        name    = "VMs"
-        address = "172.20.10.0/24"
+        name   = "VMs"
+        prefix = "172.20.10.0/24"
       },
       {
-        name    = "Storage"
-        address = "172.20.8.0/24"
+        name   = "Storage"
+        prefix = "172.20.8.0/24"
       }
     ]
   }

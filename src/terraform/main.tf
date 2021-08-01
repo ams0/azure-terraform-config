@@ -1,3 +1,17 @@
+locals {
+  network_subnets = flatten([
+    for network_key, network in var.vnets : [
+      for subnet in network.subnets : {
+        network_key = network_key
+        name        = subnet.name
+        prefix      = subnet.prefix
+        vnet_name   = network.vnet_name[0]
+      }
+    ]
+  ])
+}
+
+
 resource "azurerm_resource_group" "resources" {
   name     = var.main_rg_name
   location = var.main_rg_location
@@ -12,7 +26,6 @@ resource "azurerm_ssh_public_key" "pubkey" {
   public_key          = var.pubkey
 
   tags = var.tags
-
 }
 
 resource "azurerm_storage_account" "mainstorage" {
@@ -25,15 +38,12 @@ resource "azurerm_storage_account" "mainstorage" {
   nfsv3_enabled             = true
   enable_https_traffic_only = false
   is_hns_enabled            = true
-
   network_rules {
     default_action             = "Deny"
     ip_rules                   = [var.home_ip]
     virtual_network_subnet_ids = [azurerm_virtual_network.vnets[0].subnet.*.id[2]]
   }
-
   tags = var.tags
-
 }
 
 resource "azurerm_storage_share" "cloudshell" {
@@ -51,17 +61,7 @@ resource "azurerm_virtual_network" "vnets" {
   location            = azurerm_resource_group.resources.location
   address_space       = var.vnets[count.index].address_space
 
-  dynamic "subnet" {
-    for_each = var.vnets[count.index].subnets
-
-    content {
-      name           = subnet.value.name
-      address_prefix = subnet.value.address
-    }
-  }
-
   tags = var.tags
-
 }
 
 resource "azurerm_public_ip" "vnetgwip" {
@@ -99,7 +99,7 @@ resource "azurerm_virtual_network_gateway" "vpngw" {
     name                          = "vnetGatewayConfig"
     public_ip_address_id          = azurerm_public_ip.vnetgwip.id
     private_ip_address_allocation = "Dynamic"
-    subnet_id                     = azurerm_virtual_network.vnets[0].subnet.*.id[0]
+    #subnet_id                     = azurerm_virtual_network.vnets[0].subnet.*.id[0]
   }
 
   tags = var.tags
