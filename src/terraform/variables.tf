@@ -7,3 +7,8 @@ variable "main_rg_location" {
   type        = string
   description = "The location of the RG to host resources"
 }
+
+variable "pubkey" {
+  type        = string
+  description = "SSH Public key"
+}
