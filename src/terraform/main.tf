@@ -36,11 +36,11 @@ resource "azurerm_storage_account" "mainstorage" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
-  nfsv3_enabled             = true
-  enable_https_traffic_only = false
+  nfsv3_enabled             = false
+  enable_https_traffic_only = true
   is_hns_enabled            = true
   network_rules {
-    default_action = "Deny"
+    default_action = "Allow"
     ip_rules       = [var.home_ip]
     #virtual_network_subnet_ids = [azurerm_virtual_network.vnets[0].subnet.*.id[2]]
   }
