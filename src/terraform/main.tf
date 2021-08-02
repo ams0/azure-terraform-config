@@ -20,6 +20,13 @@ resource "azurerm_resource_group" "resources" {
   tags = var.tags
 }
 
+resource "azurerm_resource_group" "aks" {
+  name     = "aks"
+  location = var.main_rg_location
+
+  tags = var.tags
+}
+
 resource "azurerm_ssh_public_key" "pubkey" {
   name                = "pubkey"
   resource_group_name = azurerm_resource_group.resources.name
