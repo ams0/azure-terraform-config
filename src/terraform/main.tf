@@ -47,11 +47,11 @@ resource "azurerm_storage_account" "mainstorage" {
   tags = var.tags
 }
 
-# resource "azurerm_storage_share" "cloudshell" {
-#   name                 = "cloudshell"
-#   storage_account_name = azurerm_storage_account.mainstorage.name
-#   quota                = 50
-# }
+resource "azurerm_storage_share" "cloudshell" {
+  name                 = "cloudshell"
+  storage_account_name = azurerm_storage_account.mainstorage.name
+  quota                = 50
+}
 
 
 resource "azurerm_virtual_network" "vnets" {
