@@ -28,7 +28,16 @@ vnets = [
         name              = "Storage"
         prefix            = "172.20.8.0/24"
         service_endpoints = ["Microsoft.Storage"]
-
+      },
+      {
+        name              = "aks1"
+        prefix            = "172.20.12.0/24"
+        service_endpoints = ["Microsoft.Storage"]
+      },
+      {
+        name              = "aks2"
+        prefix            = "172.20.14.0/24"
+        service_endpoints = ["Microsoft.Storage"]
       }
     ]
   }
