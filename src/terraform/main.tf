@@ -86,7 +86,7 @@ resource "azurerm_public_ip" "vnetgwip" {
   resource_group_name = azurerm_resource_group.resources.name
   location            = azurerm_resource_group.resources.location
 
-  allocation_method = "Static"
+  allocation_method = "Dynamic"
 
   tags = var.tags
 
@@ -100,47 +100,47 @@ resource "azurerm_local_network_gateway" "home" {
   address_space       = ["192.168.178.0/24"]
 }
 
-# resource "azurerm_virtual_network_gateway" "vpngw" {
+resource "azurerm_virtual_network_gateway" "vpngw" {
 
-#   depends_on = [
-#     azurerm_subnet.subnets
-#   ]
-#   name                = "vpngw"
-#   resource_group_name = azurerm_resource_group.resources.name
-#   location            = azurerm_resource_group.resources.location
+  depends_on = [
+    azurerm_subnet.subnets
+  ]
+  name                = "vpngw"
+  resource_group_name = azurerm_resource_group.resources.name
+  location            = azurerm_resource_group.resources.location
 
-#   type     = "Vpn"
-#   vpn_type = "RouteBased"
+  type     = "Vpn"
+  vpn_type = "RouteBased"
 
-#   active_active = false
-#   enable_bgp    = false
-#   sku           = "Basic"
+  active_active = false
+  enable_bgp    = false
+  sku           = "Basic"
 
-#   ip_configuration {
-#     name                          = "vnetGatewayConfig"
-#     public_ip_address_id          = azurerm_public_ip.vnetgwip.id
-#     private_ip_address_allocation = "Dynamic"
-#     subnet_id                     = azurerm_subnet.subnets[0].id
-#   }
+  ip_configuration {
+    name                          = "vnetGatewayConfig"
+    public_ip_address_id          = azurerm_public_ip.vnetgwip.id
+    private_ip_address_allocation = "Dynamic"
+    subnet_id                     = azurerm_subnet.subnets[0].id
+  }
 
-#   tags = var.tags
+  tags = var.tags
 
-# }
+}
 
-# resource "random_string" "sharedsecret" {
-#   length  = 16
-#   special = true
-# }
+resource "random_string" "sharedsecret" {
+  length  = 16
+  special = true
+}
 
-# resource "azurerm_virtual_network_gateway_connection" "homevpn" {
-#   name                = "homevpn"
-#   resource_group_name = azurerm_resource_group.resources.name
-#   location            = azurerm_resource_group.resources.location
+resource "azurerm_virtual_network_gateway_connection" "homevpn" {
+  name                = "homevpn"
+  resource_group_name = azurerm_resource_group.resources.name
+  location            = azurerm_resource_group.resources.location
 
-#   type                       = "IPsec"
-#   virtual_network_gateway_id = azurerm_virtual_network_gateway.vpngw.id
-#   local_network_gateway_id   = azurerm_local_network_gateway.home.id
+  type                       = "IPsec"
+  virtual_network_gateway_id = azurerm_virtual_network_gateway.vpngw.id
+  local_network_gateway_id   = azurerm_local_network_gateway.home.id
 
-#   shared_key = random_string.sharedsecret.result
+  shared_key = random_string.sharedsecret.result
 
-# }
+}
