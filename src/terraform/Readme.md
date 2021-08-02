@@ -1,1 +1,1 @@
-# Terraforming Azure
+# Terraforming Azure for fun and profit
