@@ -88,6 +88,14 @@ resource "azurerm_subnet" "subnets" {
   service_endpoints = local.network_subnets[count.index].service_endpoints
 }
 
+resource "azurerm_user_assigned_identity" "aks" {
+  resource_group_name = azurerm_resource_group.resources.name
+  location            = azurerm_resource_group.resources.location
+
+  name = "aks"
+}
+
+
 resource "azurerm_public_ip" "vnetgwip" {
   name                = "vnetgwip"
   resource_group_name = azurerm_resource_group.resources.name
