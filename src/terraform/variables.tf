@@ -37,6 +37,10 @@ variable "home_ip" {
   description = "My home IP (set in Terraform Cloud)"
 }
 
+variable "home_prefix" {
+  description = "My home prefix"
+}
+
 variable "storage_name" {
   type        = string
   description = "Main storage account name"

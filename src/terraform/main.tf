@@ -113,66 +113,32 @@ resource "azurerm_managed_disk" "prometheus" {
 
 }
 
-resource "azurerm_public_ip" "vnetgwip" {
-  name                = "vnetgwip"
-  resource_group_name = azurerm_resource_group.resources.name
-  location            = azurerm_resource_group.resources.location
-
-  allocation_method = "Dynamic"
-
-  tags = var.tags
-
-}
-
-resource "azurerm_local_network_gateway" "home" {
-  name                = "home"
-  resource_group_name = azurerm_resource_group.resources.name
-  location            = azurerm_resource_group.resources.location
-  gateway_address     = var.home_ip
-  address_space       = ["192.168.178.0/24"]
-}
-
-resource "azurerm_virtual_network_gateway" "vpngw" {
+module "vpngw" {
+  source = "./modules/vpngw"
 
   depends_on = [
     azurerm_subnet.subnets
   ]
-  name                = "vpngw"
+
+  home_ip             = var.home_ip
+  home_prefix         = var.home_prefix
   resource_group_name = azurerm_resource_group.resources.name
   location            = azurerm_resource_group.resources.location
-
-  type     = "Vpn"
-  vpn_type = "RouteBased"
-
-  active_active = false
-  enable_bgp    = false
-  sku           = "VpnGw1"
-
-  ip_configuration {
-    name                          = "vnetGatewayConfig"
-    public_ip_address_id          = azurerm_public_ip.vnetgwip.id
-    private_ip_address_allocation = "Dynamic"
-    subnet_id                     = azurerm_subnet.subnets[0].id
-  }
+  subnet_id           = azurerm_subnet.subnets[0].id
 
   tags = var.tags
-
 }
 
-resource "random_string" "sharedsecret" {
-  length  = 16
-  special = true
-}
+# module "storages" {
+#   source = "../../modules/storages"
 
-resource "azurerm_virtual_network_gateway_connection" "homevpn" {
-  name                = "homevpn"
-  resource_group_name = azurerm_resource_group.resources.name
-  location            = azurerm_resource_group.resources.location
+#   environment                = var.environment
+#   app_name                   = var.app_name
+#   location                   = var.location
+#   resource_group_name        = data.azurerm_resource_group.rg.name
+#   virtual_network_subnet_ids = [data.azurerm_subnet.akssubnet.id, data.azurerm_subnet.jenkins.id]
 
-  type                       = "IPsec"
-  virtual_network_gateway_id = azurerm_virtual_network_gateway.vpngw.id
-  local_network_gateway_id   = azurerm_local_network_gateway.home.id
+#   storages = var.storages
 
-  shared_key = random_string.sharedsecret.result
-
-}
+#   tags = local.common_tags
+# }

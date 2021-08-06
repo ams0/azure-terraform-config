@@ -10,6 +10,8 @@ storage_name = "storeme"
 
 prometheus_disk_size = 10
 
+home_prefix = ["192.168.178.0/24"]
+
 vnets = [
   {
     vnet_name     = "k8svnet"

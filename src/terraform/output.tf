@@ -1,7 +1,7 @@
 output "vpngwip" {
-  value = azurerm_public_ip.vnetgwip.ip_address
+  value = module.vpngw.vpngwip
 }
 
 output "sharedsecret" {
-  value = random_string.sharedsecret.result
+  value = module.vpngw.sharedsecret
 }
