@@ -15,6 +15,11 @@ variable "pubkey" {
   description = "SSH Public key"
 }
 
+variable "prometheus_disk_size" {
+  type        = string
+  description = "SSH Public key"
+}
+
 variable "vnets" {
   type = list(object({
     vnet_name     = string

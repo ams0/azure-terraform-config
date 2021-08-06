@@ -95,6 +95,23 @@ resource "azurerm_user_assigned_identity" "aks" {
   name = "aks"
 }
 
+resource "azurerm_role_assignment" "vmcaks" {
+  scope                = azurerm_resource_group.resources.id
+  role_definition_name = "Virtual Machine Contributor"
+  principal_id         = azurerm_user_assigned_identity.aks.principal_id
+}
+
+resource "azurerm_managed_disk" "prometheus" {
+  name                 = "prometheus-metrics"
+  resource_group_name  = azurerm_resource_group.resources.name
+  location             = azurerm_resource_group.resources.location
+  storage_account_type = "Standard_LRS"
+  create_option        = "Empty"
+  disk_size_gb         = var.prometheus_disk_size
+
+  tags = var.tags
+
+}
 
 resource "azurerm_public_ip" "vnetgwip" {
   name                = "vnetgwip"

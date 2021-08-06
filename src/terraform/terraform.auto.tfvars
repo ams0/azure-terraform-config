@@ -8,6 +8,8 @@ pubkey           = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIOxg+goSYoCIND3IIAjPo
 
 storage_name = "storeme"
 
+prometheus_disk_size = 10
+
 vnets = [
   {
     vnet_name     = "k8svnet"
