@@ -95,6 +95,13 @@ resource "azurerm_user_assigned_identity" "aks" {
   name = "aks"
 }
 
+resource "azurerm_user_assigned_identity" "aksnodepool" {
+  resource_group_name = azurerm_resource_group.resources.name
+  location            = azurerm_resource_group.resources.location
+
+  name = "aksnodepool"
+}
+
 resource "azurerm_role_assignment" "vmcaks" {
   scope                = azurerm_resource_group.resources.id
   role_definition_name = "Virtual Machine Contributor"
