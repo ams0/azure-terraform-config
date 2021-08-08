@@ -120,6 +120,18 @@ resource "azurerm_managed_disk" "prometheus" {
 
 }
 
+resource "azurerm_managed_disk" "loki" {
+  name                 = "loki-storage"
+  resource_group_name  = azurerm_resource_group.resources.name
+  location             = azurerm_resource_group.resources.location
+  storage_account_type = "Standard_LRS"
+  create_option        = "Empty"
+  disk_size_gb         = var.loki_disk_size
+
+  tags = var.tags
+
+}
+
 module "vpngw" {
   source = "./modules/vpngw"
 
