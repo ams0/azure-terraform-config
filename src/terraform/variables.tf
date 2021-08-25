@@ -17,7 +17,12 @@ variable "pubkey" {
 
 variable "prometheus_disk_size" {
   type        = string
-  description = "SSH Public key"
+  description = "prometheus_disk_size"
+}
+
+variable "loki_disk_size" {
+  type        = string
+  description = "loki_disk_size"
 }
 
 variable "vnets" {
