@@ -112,7 +112,7 @@ data "azurerm_resource_group" "dns" {
   name = "dns"
 }
 resource "azurerm_role_assignment" "dns" {
-  scope                = azurerm_resource_group.dns.id
+  scope                = data.azurerm_resource_group.dns.id
   role_definition_name = "DNS Zone Contributor"
   principal_id         = azurerm_user_assigned_identity.aksnodepool.principal_id
 }
