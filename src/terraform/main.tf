@@ -108,6 +108,15 @@ resource "azurerm_role_assignment" "vmcaks" {
   principal_id         = azurerm_user_assigned_identity.aks.principal_id
 }
 
+data "azurerm_resource_group" "dns" {
+  name = "dns"
+}
+resource "azurerm_role_assignment" "dns" {
+  scope                = azurerm_resource_group.dns.id
+  role_definition_name = "DNS Zone Contributor"
+  principal_id         = azurerm_user_assigned_identity.aksnodepool.principal_id
+}
+
 resource "azurerm_managed_disk" "prometheus" {
   name                 = "prometheus-metrics"
   resource_group_name  = azurerm_resource_group.resources.name
