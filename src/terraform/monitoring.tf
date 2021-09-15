@@ -38,7 +38,7 @@ resource "azurerm_public_ip" "monitoring" {
 
 data "azurerm_dns_zone" "monitoring" {
   name                = "alessandrovozza.com"
-  resource_group_name = "search-service"
+  resource_group_name = "dns"
 }
 
 resource "azurerm_dns_a_record" "monitoring" {
@@ -53,7 +53,7 @@ data "template_file" "cloudconfig" {
   template = file("${path.module}/cloud-init.tpl")
 
   vars = {
-    ssh_port = "2224"
+    ssh_port    = "2224"
     docker_user = "adminuser"
     #    timezone = var.timezone
     #    password = data.azurerm_key_vault_secret.vaultsecret.value
