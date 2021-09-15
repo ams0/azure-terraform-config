@@ -22,3 +22,4 @@ resource "azurerm_network_interface" "monitoring" {
     private_ip_address_allocation = "Dynamic"
   }
 }
+
