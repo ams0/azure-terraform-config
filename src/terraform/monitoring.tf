@@ -14,7 +14,7 @@ data "azurerm_subnet" "vms" {
 resource "azurerm_network_interface" "monitoring" {
   name                = "monitoring-nic"
   location            = var.main_rg_location
-  resource_group_name = azurerm_resource_group.vms.name
+  resource_group_name = azurerm_resource_group.monitoring.name
 
   ip_configuration {
     name                          = "internal"
