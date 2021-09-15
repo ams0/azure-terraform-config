@@ -95,9 +95,9 @@ resource "azurerm_linux_virtual_machine" "monitoring" {
 
   source_image_reference {
     publisher = "Canonical"
-    offer     = "UbuntuServer"
+    offer     = "0001-com-ubuntu-server-focal"
     sku       = "20_04-lts"
-    version   = "latest"
+    version   = "20.04.202109080"
   }
 
   custom_data = data.template_cloudinit_config.config.rendered
