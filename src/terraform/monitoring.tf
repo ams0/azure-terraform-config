@@ -18,7 +18,7 @@ resource "azurerm_network_interface" "monitoring" {
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = data.azurerm_subnet.monitoring.id
+    subnet_id                     = data.azurerm_subnet.vms.id
     private_ip_address_allocation = "Dynamic"
   }
 }
