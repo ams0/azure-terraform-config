@@ -34,7 +34,7 @@ resource "azurerm_network_interface" "monitoring" {
 }
 
 resource "azurerm_network_security_group" "ssh" {
-  name                = "sssh"
+  name                = "monitoring-ssh"
   location            = var.main_rg_location
   resource_group_name = azurerm_resource_group.monitoring.name
 
