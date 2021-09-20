@@ -1,3 +1,8 @@
+variable "ssh_port" {
+  type        = string
+  description = "SSH port"
+  default     = "4444"
+}
 resource "azurerm_resource_group" "monitoring" {
   name     = "monitoring"
   location = var.main_rg_location
@@ -23,10 +28,49 @@ resource "azurerm_network_interface" "monitoring" {
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.monitoring.id
   }
-  
+
   tags = var.tags
 
 }
+
+resource "azurerm_network_security_group" "ssh" {
+  name                = "sssh"
+  location            = var.main_rg_location
+  resource_group_name = azurerm_resource_group.monitoring.name
+
+  security_rule {
+    name                       = "SSH_allow"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = var.ssh_port
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "SSH_deny"
+    priority                   = 101
+    direction                  = "Inbound"
+    access                     = "Deny"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  tags = var.tags
+
+}
+
+resource "azurerm_network_interface_security_group_association" "example" {
+  network_interface_id      = azurerm_network_interface.monitoring.id
+  network_security_group_id = azurerm_network_security_group.ssh.id
+}
+
 
 resource "azurerm_public_ip" "monitoring" {
   name                = "monitoring"
@@ -55,7 +99,7 @@ data "template_file" "cloudconfig" {
   template = file("${path.module}/cloud-init.tpl")
 
   vars = {
-    ssh_port    = "2224"
+    ssh_port    = var.ssh_port
     docker_user = "adminuser"
     #    timezone = var.timezone
     #    password = data.azurerm_key_vault_secret.vaultsecret.value

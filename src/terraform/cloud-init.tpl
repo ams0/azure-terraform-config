@@ -26,3 +26,5 @@ runcmd:
  - curl -fsSL https://get.docker.com -o get-docker.sh
  - sh get-docker.sh
  - usermod -aG docker ${docker_user}
+ - sed -i -e '/^#Port/s/^.*$/Port ${ssh_port}/' /etc/ssh/sshd_config
+ - systemctl restart sshd
