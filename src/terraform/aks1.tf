@@ -13,6 +13,8 @@ resource "azurerm_kubernetes_cluster" "aks1" {
   }
 
   kubelet_identity {
+    client_id                 = azurerm_user_assigned_identity.aksnodepool.client_id
+    object_id                 = azurerm_user_assigned_identity.aksnodepool.principal_id
     user_assigned_identity_id = azurerm_user_assigned_identity.aksnodepool.id
   }
   identity {
