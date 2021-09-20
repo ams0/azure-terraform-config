@@ -66,7 +66,7 @@ resource "azurerm_network_security_group" "ssh" {
 
 }
 
-resource "azurerm_network_interface_security_group_association" "example" {
+resource "azurerm_network_interface_security_group_association" "sshmonitoring" {
   network_interface_id      = azurerm_network_interface.monitoring.id
   network_security_group_id = azurerm_network_security_group.ssh.id
 }
