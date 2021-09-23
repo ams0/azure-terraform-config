@@ -1,14 +1,20 @@
 variable "tags" {
   description = "List of tags to be applied to all resources"
 }
-variable "main_rg_name" {
+variable "resources_rg_name" {
   type        = string
   description = "The name of the RG to host resources"
 }
 
-variable "main_rg_location" {
+variable "resources_rg_location" {
   type        = string
   description = "The location of the RG to host resources"
+}
+
+variable "monitoring_vm" {
+  type        = string
+  description = "Deploy monitoring VM"
+  default     = true
 }
 variable "pubkey" {
   type        = string

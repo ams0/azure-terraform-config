@@ -14,15 +14,22 @@ locals {
 
 
 resource "azurerm_resource_group" "resources" {
-  name     = var.main_rg_name
-  location = var.main_rg_location
+  name     = var.resources_rg_name
+  location = var.resources_rg_location
+
+  tags = var.tags
+}
+
+resource "azurerm_resource_group" "vms" {
+  name     = "vms"
+  location = var.resources_rg_location
 
   tags = var.tags
 }
 
 resource "azurerm_resource_group" "aks" {
   name     = "aks"
-  location = var.main_rg_location
+  location = var.resources_rg_location
 
   tags = var.tags
 }
