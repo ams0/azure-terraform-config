@@ -1,33 +1,20 @@
-resource "azurerm_kubernetes_cluster" "aks1" {
-  name                = "aks1"
-  location            = var.resources_rg_location
-  resource_group_name = azurerm_resource_group.aks.name
-  dns_prefix          = "aks1"
-  kubernetes_version  = "1.21.2"
+module "aks1" {
+  source = "./modules/aks"
 
-  default_node_pool {
-    name       = "default"
-    node_count = 2
-    vm_size    = "Standard_B4ms"
-    #3 = aks1
-    #4 = aks2
-    vnet_subnet_id = azurerm_subnet.subnets[3].id
-  }
+  count = var.aks1 ? 1 : 0
 
-  kubelet_identity {
-    client_id                 = azurerm_user_assigned_identity.aksnodepool.client_id
-    object_id                 = azurerm_user_assigned_identity.aksnodepool.principal_id
-    user_assigned_identity_id = azurerm_user_assigned_identity.aksnodepool.id
-  }
-  identity {
-    type                      = "UserAssigned"
-    user_assigned_identity_id = azurerm_user_assigned_identity.aks.id
-  }
+  dns_prefix         = "aks1"
+  kubernetes_version = "1.21.2"
 
-  network_profile {
-    network_plugin = "kubenet"
-    network_policy = "calico"
-  }
+  #3 = aks1
+  #4 = aks2
+  vnet_subnet_id = azurerm_subnet.subnets[3].id
+
+  nodepool_client_id                 = azurerm_user_assigned_identity.aksnodepool.client_id
+  nodepool_object_id                 = azurerm_user_assigned_identity.aksnodepool.principal_id
+  nodepool_user_assigned_identity_id = azurerm_user_assigned_identity.aksnodepool.id
+
+  user_assigned_identity_id = azurerm_user_assigned_identity.aks.id
+
   tags = var.tags
-
 }

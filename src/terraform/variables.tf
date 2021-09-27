@@ -16,6 +16,12 @@ variable "monitoring_vm" {
   description = "Deploy monitoring VM"
   default     = true
 }
+
+variable "aks1" {
+  type        = string
+  description = "Deploy monitoring VM"
+  default     = true
+}
 variable "pubkey" {
   type        = string
   description = "SSH Public key"
