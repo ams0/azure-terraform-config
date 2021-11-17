@@ -116,17 +116,17 @@ resource "azurerm_role_assignment" "vmcaks" {
 }
 
 resource "azurerm_container_registry" "acr" {
-  name                      = "theregistry"
-  resource_group_name       = azurerm_resource_group.resources.name
-  location                  = azurerm_resource_group.resources.location
-  sku                       = "Premium"
-  regional_endpoint_enabled = true
-  admin_enabled             = false
+  name                = "theregistry"
+  resource_group_name = azurerm_resource_group.resources.name
+  location            = azurerm_resource_group.resources.location
+  sku                 = "Premium"
+  admin_enabled       = false
   georeplications = [
     {
-      location                = "West US 2"
-      zone_redundancy_enabled = false
-      tags                    = var.tags
+      location                  = "West US 2"
+      zone_redundancy_enabled   = false
+      regional_endpoint_enabled = true
+      tags                      = var.tags
     }
   ]
   tags = var.tags
