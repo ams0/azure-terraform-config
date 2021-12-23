@@ -5,15 +5,30 @@ resource "azurerm_resource_group" "monitoring" {
   tags = var.tags
 }
 
-module "loganalytics" {
-  source  = "./modules/loganalytics"
-  rg_name = azurerm_resource_group.monitoring.name
-  ws_name = "logws"
+# module "loganalytics" {
+#   source  = "./modules/loganalytics"
+#   rg_name = azurerm_resource_group.monitoring.name
+#   ws_name = "logws"
 
-  tags = var.tags
+#   tags = var.tags
 
+# }
+
+module "workspace" {
+    source = "avinor/log-analytics/azurerm"
+
+  name                = "common"
+  resource_group_name = "test"
+  location            = "westeurope"
+
+  solutions = [
+    {
+      solution_name = "ContainerInsights",
+      publisher     = "Microsoft",
+      product       = "OMSGallery/ContainerInsights",
+    },
+  ]
 }
-
 module "monitoring" {
   source = "./modules/vm"
 
