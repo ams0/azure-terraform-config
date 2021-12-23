@@ -25,7 +25,7 @@ resource "azurerm_log_analytics_solution" "vm_insights" {
 }
 
 resource "azurerm_log_analytics_solution" "containers" {
-  solution_name         = "ContainerInsights(${var.ws_name})"
+  solution_name         = "Containers(${var.ws_name})"
   location              = data.azurerm_resource_group.log.location
   resource_group_name   = data.azurerm_resource_group.log.name
   workspace_resource_id = azurerm_log_analytics_workspace.logws.workspace_id
@@ -33,7 +33,7 @@ resource "azurerm_log_analytics_solution" "containers" {
 
   plan {
     publisher = "Microsoft"
-    product   = "OMSGallery/ContainerInsights"
+    product   = "OMSGallery/Containers"
   }
 }
 
