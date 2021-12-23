@@ -11,11 +11,11 @@ resource "azurerm_log_analytics_workspace" "logws" {
 }
 
 resource "azurerm_log_analytics_solution" "containers" {
-  solution_name         = "ContainerInsights"
+  solution_name         = "ContainerInsights(${var.ws_name})"
   location              = data.azurerm_resource_group.log.location
   resource_group_name   = data.azurerm_resource_group.log.name
   workspace_resource_id = azurerm_log_analytics_workspace.logws.workspace_id
-  workspace_name        = "logws"
+  workspace_name        = azurerm_log_analytics_workspace.logws.name
 
   plan {
     publisher = "Microsoft"
