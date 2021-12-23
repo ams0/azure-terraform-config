@@ -11,7 +11,7 @@ resource "azurerm_log_analytics_workspace" "logws" {
 }
 
 resource "azurerm_log_analytics_solution" "vm_insights" {
-  solution_name         = "VMInsights(${var.ws_name})"
+  solution_name         = "VMInsights"
   location              = data.azurerm_resource_group.log.location
   resource_group_name   = data.azurerm_resource_group.log.name
   workspace_resource_id = azurerm_log_analytics_workspace.logws.workspace_id
@@ -25,7 +25,7 @@ resource "azurerm_log_analytics_solution" "vm_insights" {
 }
 
 resource "azurerm_log_analytics_solution" "containers" {
-  solution_name         = "Containers(${var.ws_name})"
+  solution_name         = "Containers"
   location              = data.azurerm_resource_group.log.location
   resource_group_name   = data.azurerm_resource_group.log.name
   workspace_resource_id = azurerm_log_analytics_workspace.logws.workspace_id
