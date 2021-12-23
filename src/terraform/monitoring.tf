@@ -1,6 +1,12 @@
+resource "azurerm_resource_group" "monitoring" {
+  name     = var.monitoring_rg_name
+  location = var.monitoring_rg_location
+
+  tags = var.tags
+}
 module "loganalytics" {
   source  = "./modules/loganalytics"
-  rg_name = var.resources_rg_name
+  rg_name = azurerm_resource_group.monitoring.name
   ws_name = "logws"
 
   tags = var.tags
