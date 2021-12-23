@@ -10,6 +10,20 @@ resource "azurerm_log_analytics_workspace" "logws" {
   retention_in_days   = 30
 }
 
+resource "azurerm_log_analytics_solution" "vm_insights" {
+  solution_name         = "VMInsights(${var.ws_name})"
+  location              = data.azurerm_resource_group.log.location
+  resource_group_name   = data.azurerm_resource_group.log.name
+  workspace_resource_id = azurerm_log_analytics_workspace.logws.workspace_id
+  workspace_name        = azurerm_log_analytics_workspace.logws.name
+
+
+  plan {
+    product   = "Microsoft"
+    publisher = "OMSGallery/VMInsights"
+  }
+}
+
 resource "azurerm_log_analytics_solution" "containers" {
   solution_name         = "ContainerInsights(${var.ws_name})"
   location              = data.azurerm_resource_group.log.location
