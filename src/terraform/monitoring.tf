@@ -4,14 +4,15 @@ resource "azurerm_resource_group" "monitoring" {
 
   tags = var.tags
 }
-# module "loganalytics" {
-#   source  = "./modules/loganalytics"
-#   rg_name = azurerm_resource_group.monitoring.name
-#   ws_name = "logws"
 
-#   tags = var.tags
+module "loganalytics" {
+  source  = "./modules/loganalytics"
+  rg_name = azurerm_resource_group.monitoring.name
+  ws_name = "logws"
 
-# }
+  tags = var.tags
+
+}
 
 module "monitoring" {
   source = "./modules/vm"
