@@ -19,6 +19,33 @@ module "workspace" {
       publisher     = "Microsoft",
       product       = "OMSGallery/VMInsights",
     },
+
+    {
+      solution_name = "ServiceMap",
+      publisher     = "Microsoft",
+      product       = "OMSGallery/ServiceMap",
+    },
+    {
+      solution_name = "SecurityCenterFree",
+      publisher     = "Microsoft",
+      product       = "OMSGallery/SecurityCenterFree",
+    },
+    {
+      solution_name = "AzureActivity",
+      publisher     = "Microsoft",
+      product       = "OMSGallery/AzureActivity",
+    },
+
+    {
+      solution_name = "NetworkMonitoring",
+      publisher     = "Microsoft",
+      product       = "OMSGallery/NetworkMonitoring",
+    },
+    {
+      solution_name = "Security",
+      publisher     = "Microsoft",
+      product       = "OMSGallery/Security",
+    },
   ]
 }
 
