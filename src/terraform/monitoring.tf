@@ -2,6 +2,9 @@ module "loganalytics" {
   source  = "./modules/loganalytics"
   rg_name = var.resources_rg_name
   ws_name = "logws"
+
+  tags = var.tags
+
 }
 
 module "monitoring" {
