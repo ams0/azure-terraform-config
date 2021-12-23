@@ -1,25 +1,12 @@
-resource "azurerm_resource_group" "monitoring" {
-  name     = var.monitoring_rg_name
-  location = var.monitoring_rg_location
-
-  tags = var.tags
-}
-
-# module "loganalytics" {
-#   source  = "./modules/loganalytics"
-#   rg_name = azurerm_resource_group.monitoring.name
-#   ws_name = "logws"
-
-#   tags = var.tags
-
-# }
-
 module "workspace" {
-    source = "avinor/log-analytics/azurerm"
+  source = "avinor/log-analytics/azurerm"
 
-  name                = "common"
-  resource_group_name = "test"
-  location            = "westeurope"
+  name                = var.logws_name
+  resource_group_name = var.monitoring_rg_name
+  location            = var.monitoring_rg_location
+
+  sku  = "PerGB2018"
+  tags = var.tags
 
   solutions = [
     {
@@ -27,9 +14,15 @@ module "workspace" {
       publisher     = "Microsoft",
       product       = "OMSGallery/ContainerInsights",
     },
+    {
+      solution_name = "VMInsights",
+      publisher     = "Microsoft",
+      product       = "OMSGallery/VMInsights",
+    },
   ]
 }
-module "monitoring" {
+
+module "monitoringvm" {
   source = "./modules/vm"
 
   count = var.monitoring_vm ? 1 : 0
