@@ -9,8 +9,10 @@ resource "azurerm_subscription_policy_assignment" "azpolicy-addon-to-aks" {
 
   parameters = <<PARAMETERS
     {
-      "effect": "Audit"
+      "Effect": {
+        "value: "Audit"
+      }
     }
-  PARAMETERS
+    PARAMETERS
 }
 
