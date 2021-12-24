@@ -20,6 +20,7 @@ resource "azurerm_subscription_policy_assignment" "azpolicy-addon-deploy-aks" {
   policy_definition_id = "/providers/Microsoft.Authorization/policyDefinitions/a8eff44f-8c92-45c3-a3fb-9880802d67a7"
   subscription_id      = data.azurerm_subscription.current.id
   display_name         = "Deploy Azure Policy Add-on to Azure Kubernetes Service clusters - TF"
+  location             = var.resources_rg_location
 
   parameters = jsonencode({
     "effect" : {
@@ -41,16 +42,18 @@ resource "azurerm_subscription_policy_assignment" "k8s-secbaseline" {
     "effect" : {
       "value" : "audit",
     },
-    "excludedNamespaces" : [
-      "kube-system",
-      "gatekeeper-system",
-      "azure-arc",
-      "argocd",
-      "cert-manager",
-      "ingress",
-      "monitoring",
-      "flux-system",
-      "cert-manager"
-    ],
+    "excludedNamespaces" : {
+      "value" : [
+        "kube-system",
+        "gatekeeper-system",
+        "azure-arc",
+        "argocd",
+        "cert-manager",
+        "ingress",
+        "monitoring",
+        "flux-system",
+        "cert-manager"
+      ]
+    }
   })
 }
