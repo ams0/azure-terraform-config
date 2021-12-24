@@ -146,3 +146,87 @@ resource "azurerm_subscription_policy_assignment" "k8s-no-default-ns" {
     }
   })
 }
+
+resource "azurerm_subscription_policy_assignment" "k8s-no-external-lb" {
+  name                 = "k8s-no-external-lb"
+  policy_definition_id = "/providers/Microsoft.Authorization/policyDefinitions/3fc4dc25-5baf-40d8-9b05-7fe74c1bc64e"
+  subscription_id      = data.azurerm_subscription.current.id
+  display_name         = "Kubernetes clusters should use internal load balancers - TF"
+
+  parameters = jsonencode({
+    "effect" : {
+      "value" : "audit",
+    },
+    "excludedNamespaces" : {
+      "value" : [
+        "kube-system",
+        "gatekeeper-system",
+        "azure-arc",
+        "argocd",
+        "cert-manager",
+        "ingress",
+        "monitoring",
+        "flux-system",
+        "cert-manager"
+      ]
+    }
+  })
+}
+
+resource "azurerm_subscription_policy_assignment" "k8s-allowlist-ip" {
+  name                 = "k8s-allowlist-ip"
+  policy_definition_id = "/providers/Microsoft.Authorization/policyDefinitions/d46c275d-1680-448d-b2ec-e495a3b6cc89"
+  subscription_id      = data.azurerm_subscription.current.id
+  display_name         = "Kubernetes cluster services should only use allowed external IPs - TF"
+
+  parameters = jsonencode({
+    "effect" : {
+      "value" : "audit",
+    },
+    "allowedExternalIPs": {
+        "value" : []
+    }
+    "excludedNamespaces" : {
+      "value" : [
+        "kube-system",
+        "gatekeeper-system",
+        "azure-arc",
+        "argocd",
+        "cert-manager",
+        "ingress",
+        "monitoring",
+        "flux-system",
+        "cert-manager"
+      ]
+    }
+  })
+}
+
+resource "azurerm_subscription_policy_assignment" "k8s-allowed-ports" {
+  name                 = "k8s-allowed-ports"
+  policy_definition_id = "/providers/Microsoft.Authorization/policyDefinitions/233a2a17-77ca-4fb1-9b6b-69223d272a44"
+  subscription_id      = data.azurerm_subscription.current.id
+  display_name         = "Kubernetes cluster services should listen only on allowed ports - TF"
+
+  parameters = jsonencode({
+    "effect" : {
+      "value" : "audit",
+    },
+    "allowedServicePortsList": {
+        "value": ["443"]
+    }
+    "excludedNamespaces" : {
+      "value" : [
+        "kube-system",
+        "gatekeeper-system",
+        "azure-arc",
+        "argocd",
+        "cert-manager",
+        "ingress",
+        "monitoring",
+        "flux-system",
+        "cert-manager"
+      ]
+    }
+  })
+}
