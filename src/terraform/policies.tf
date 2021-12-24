@@ -15,18 +15,18 @@ resource "azurerm_subscription_policy_assignment" "azpolicy-addon-enabled-aks" {
         PARAMETERS
 }
 
-resource "azurerm_subscription_policy_assignment" "azpolicy-addon-deploy-aks" {
-  name                 = "azpolicy-deploy-aks"
-  policy_definition_id = "/providers/Microsoft.Authorization/policyDefinitions/a8eff44f-8c92-45c3-a3fb-9880802d67a7"
-  subscription_id      = data.azurerm_subscription.current.id
-  display_name         = "Deploy Azure Policy Add-on to Azure Kubernetes Service clusters - TF"
+# resource "azurerm_subscription_policy_assignment" "azpolicy-addon-deploy-aks" {
+#   name                 = "azpolicy-deploy-aks"
+#   policy_definition_id = "/providers/Microsoft.Authorization/policyDefinitions/a8eff44f-8c92-45c3-a3fb-9880802d67a7"
+#   subscription_id      = data.azurerm_subscription.current.id
+#   display_name         = "Deploy Azure Policy Add-on to Azure Kubernetes Service clusters - TF"
 
-    parameters = jsonencode({
-        "effect": {
-        "value": "Disabled",
-        },
-    })
-}
+#     parameters = jsonencode({
+#         "effect": {
+#             "value": "Disabled",
+#         },
+#     })
+# }
 
 resource "azurerm_subscription_policy_assignment" "k8s-secbaseline" {
   name                 = "k8s-secbaseline"
@@ -34,13 +34,11 @@ resource "azurerm_subscription_policy_assignment" "k8s-secbaseline" {
   subscription_id      = data.azurerm_subscription.current.id
   display_name         = "Kubernetes cluster pod security baseline standards for Linux-based workloads- TF"
 
-  parameters = <<PARAMETERS
-        {
-            "effect": {
-                "value" : "audit"
-            },
-            "excludedNamespaces": 
-                [
+    parameters = jsonencode({
+        "effect": {
+            "value": "audit",
+        },
+        "excludedNamespaces": [
                     "kube-system",
                     "gatekeeper-system",
                     "azure-arc",
@@ -51,6 +49,5 @@ resource "azurerm_subscription_policy_assignment" "k8s-secbaseline" {
                     "flux-system",
                     "cert-manager"
                     ]
-        }
-        PARAMETERS
+    })
 }
