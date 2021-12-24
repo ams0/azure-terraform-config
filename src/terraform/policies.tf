@@ -106,7 +106,7 @@ PARAMETERS
 
 resource "azurerm_subscription_policy_assignment" "aks-add-support" {
   name                 = "aks-add-support"
-  policy_definition_id = "/providers/Microsoft.Authorization/policyDefinitions/70a9f0fe-37c4-4133-b8c4-b44f251b7979"
+  policy_definition_id = azurerm_policy_definition.aks-add-support.id
   subscription_id      = data.azurerm_subscription.current.id
   display_name         = "Enforce AKS aad support - TF"
 
@@ -117,10 +117,6 @@ resource "azurerm_subscription_policy_assignment" "aks-add-support" {
             }
         }
         PARAMETERS
-
-  depends_on = [
-    azurerm_policy_definition.aks-add-support
-  ]
 }
 
 resource "azurerm_subscription_policy_assignment" "no-local-accounts" {
