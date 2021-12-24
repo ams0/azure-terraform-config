@@ -24,7 +24,7 @@ resource "azurerm_subscription_policy_assignment" "azpolicy-addon-deploy-aks" {
   parameters = <<PARAMETERS
         {
             "effect": {
-                "value" : "Audit"
+                "value" : "Disabled"
             }
         }
         PARAMETERS
