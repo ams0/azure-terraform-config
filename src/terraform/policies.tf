@@ -117,6 +117,10 @@ resource "azurerm_subscription_policy_assignment" "aks-add-support" {
             }
         }
         PARAMETERS
+
+  depends_on = [
+    azurerm_policy_definition.aks-add-support
+  ]
 }
 
 resource "azurerm_subscription_policy_assignment" "no-local-accounts" {
