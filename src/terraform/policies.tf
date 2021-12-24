@@ -6,13 +6,12 @@ resource "azurerm_subscription_policy_assignment" "azpolicy-addon-to-aks" {
   subscription_id      = data.azurerm_subscription.current.id
   display_name         = "Azure Policy Add-on for Kubernetes service (AKS) should be installed and enabled on your clusters - TF"
 
-
   parameters = <<PARAMETERS
-    {
-      "Effect": {
-        "value: "Audit"
-      }
-    }
-    PARAMETERS
+        {
+            "Effect": {
+                "value" : "Audit"
+            }
+        }
+        PARAMETERS
 }
 
