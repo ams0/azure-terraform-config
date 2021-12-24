@@ -57,6 +57,53 @@ resource "azurerm_subscription_policy_assignment" "k8s-secbaseline" {
     }
   })
 }
+
+resource "azurerm_policy_definition" "aks-add-support" {
+  name         = "aks-add-support"
+  display_name = "Enforce AKS aad support"
+  policy_type  = "Custom"
+  mode         = "All"
+
+  policy_rule = <<POLICY_RULE
+    {
+      "if": {
+        "allOf": [
+          {
+            "equals": "Microsoft.ContainerService/managedClusters",
+            "field": "type"
+          },
+          {
+            "exists": false,
+            "field": "Microsoft.ContainerService/managedClusters/aadProfile"
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+POLICY_RULE
+
+  parameters = <<PARAMETERS
+    {
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Deny"
+      }
+  }
+PARAMETERS
+
+}
+
 resource "azurerm_subscription_policy_assignment" "aks-add-support" {
   name                 = "aks-add-support"
   policy_definition_id = "/providers/Microsoft.Authorization/policyDefinitions/70a9f0fe-37c4-4133-b8c4-b44f251b7979"
@@ -129,7 +176,7 @@ resource "azurerm_subscription_policy_assignment" "k8s-no-default-ns" {
       "value" : "audit",
     },
     "namespaces" : {
-        "value": ["default"]
+      "value" : ["default"]
     },
     "excludedNamespaces" : {
       "value" : [
@@ -183,8 +230,8 @@ resource "azurerm_subscription_policy_assignment" "k8s-allowlist-ip" {
     "effect" : {
       "value" : "audit",
     },
-    "allowedExternalIPs": {
-        "value" : []
+    "allowedExternalIPs" : {
+      "value" : []
     }
     "excludedNamespaces" : {
       "value" : [
@@ -212,8 +259,8 @@ resource "azurerm_subscription_policy_assignment" "k8s-allowed-ports" {
     "effect" : {
       "value" : "audit",
     },
-    "allowedServicePortsList": {
-        "value": ["443"]
+    "allowedServicePortsList" : {
+      "value" : ["443"]
     }
     "excludedNamespaces" : {
       "value" : [
