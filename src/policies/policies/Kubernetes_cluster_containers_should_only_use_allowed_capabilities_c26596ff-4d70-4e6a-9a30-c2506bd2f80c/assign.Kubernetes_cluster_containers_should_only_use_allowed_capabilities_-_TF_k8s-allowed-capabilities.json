@@ -1,0 +1,44 @@
+{
+ "sku": {
+  "name": "A0",
+  "tier": "Free"
+ },
+ "properties": {
+  "displayName": "Kubernetes cluster containers should only use allowed capabilities - TF",
+  "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c26596ff-4d70-4e6a-9a30-c2506bd2f80c",
+  "scope": "/subscriptions/12c7e9d6-967e-40c8-8b3e-4659a4ada3ef",
+  "parameters": {
+   "effect": {
+    "value": "audit"
+   },
+   "excludedNamespaces": {
+    "value": [
+     "kube-system",
+     "gatekeeper-system",
+     "azure-arc",
+     "argocd",
+     "cert-manager",
+     "ingress",
+     "monitoring",
+     "flux-system",
+     "cert-manager"
+    ]
+   },
+   "requiredDropCapabilities": {
+    "value": [
+     "NET_RAW"
+    ]
+   }
+  },
+  "metadata": {
+   "createdBy": "e4d19079-9412-4a2f-9f3f-a81f04387904",
+   "createdOn": "2021-12-24T07:06:47.8267836Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "enforcementMode": "Default"
+ },
+ "id": "/subscriptions/12c7e9d6-967e-40c8-8b3e-4659a4ada3ef/providers/Microsoft.Authorization/policyAssignments/k8s-allowed-capabilities",
+ "type": "Microsoft.Authorization/policyAssignments",
+ "name": "k8s-allowed-capabilities"
+}
