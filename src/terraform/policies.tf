@@ -21,13 +21,11 @@ resource "azurerm_subscription_policy_assignment" "azpolicy-addon-deploy-aks" {
   subscription_id      = data.azurerm_subscription.current.id
   display_name         = "Deploy Azure Policy Add-on to Azure Kubernetes Service clusters - TF"
 
-  parameters = <<PARAMETERS
-        {
-            "effect": {
-                "value" : "Disabled"
-            }
-        }
-        PARAMETERS
+    parameters = jsonencode({
+        "effect": {
+        "value": "Disabled",
+        },
+    })
 }
 
 resource "azurerm_subscription_policy_assignment" "k8s-secbaseline" {
