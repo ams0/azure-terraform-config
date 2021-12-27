@@ -15,8 +15,8 @@ jobs:
     name: Deploy
     steps:
     - uses: actions/checkout@v2
-
-
+    # Setup Terraform
+    - uses: hashicorp/setup-terraform@v1
     # Login to Azure 
     - name: Azure Login 
       uses: azure/login@v1.4.2
@@ -24,8 +24,13 @@ jobs:
         client-id: ${{ secrets.AZURE_CLIENTID }}
         tenant-id: ${{ secrets.AZURE_TENANTID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTIONID }}
-
+    # Run az commands
     - name: 'Run az commands'
       run: |
-        az account set -s 'alvozza'
-        az group list
+        az account set -s 'alvozza' -o table
+        az group list -o table
+    - run: terraform init
+      working-directory: ./temp
+    - run: terraform plan
+      working-directory: ./temp
+
