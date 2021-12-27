@@ -29,12 +29,13 @@ jobs:
       run: |
         az account set -s 'alvozza' -o table
         az group list -o table
-    - run: terraform init
-      working-directory: ./temp
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENTID }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_TENANTID }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_SUBSCRIPTIONID }}
-    - run: terraform plan
-      working-directory: ./temp
+    #not working until https://github.com/hashicorp/go-azure-helpers/issues/91
+    # - run: terraform init
+    #   working-directory: ./temp
+    #   env:
+    #     ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENTID }}
+    #     ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_TENANTID }}
+    #     ARM_TENANT_ID: ${{ secrets.AZURE_SUBSCRIPTIONID }}
+    # - run: terraform plan
+    #   working-directory: ./temp
 
