@@ -31,6 +31,10 @@ jobs:
         az group list -o table
     - run: terraform init
       working-directory: ./temp
+      env:
+        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENTID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_TENANTID }}
+        ARM_TENANT_ID: ${{ secrets.AZURE_SUBSCRIPTIONID }}
     - run: terraform plan
       working-directory: ./temp
 
