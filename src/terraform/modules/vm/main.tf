@@ -125,7 +125,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   ]
 
   identity {
-    type = SystemAssigned
+    type = "SystemAssigned"
   }
   admin_ssh_key {
     username   = var.admin_user
