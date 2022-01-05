@@ -160,7 +160,7 @@ resource "azurerm_virtual_machine_extension" "aadlinux" {
   auto_upgrade_minor_version = true
 }
 
-
+# az ssh vm -n monitoring -g vms --port 4444 (if you are part of the sshlinux AAD group)
 resource "azurerm_role_assignment" "vmadmin" {
   scope                = azurerm_linux_virtual_machine.vm.id
   role_definition_name = "Virtual Machine Administrator Login"
