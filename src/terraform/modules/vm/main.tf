@@ -161,8 +161,8 @@ resource "azurerm_virtual_machine_extension" "aadlinux" {
 }
 
 
-resource "azurerm_role_assignment" "vmcaks" {
+resource "azurerm_role_assignment" "vmadmin" {
   scope                = azurerm_linux_virtual_machine.vm.id
   role_definition_name = "Virtual Machine Administrator Login"
-  principal_id         = "3e9b021e-9759-47f3-88af-ee43bfb39f55"
+  principal_id         = "b46e5608-feca-4afc-8c46-832d5bbe6748"  #sshlinux AAD group in 12c.. tenant
 }
