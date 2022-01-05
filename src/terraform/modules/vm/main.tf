@@ -162,7 +162,7 @@ resource "azurerm_virtual_machine_extension" "aadlinux" {
 
 
 resource "azurerm_role_assignment" "vmcaks" {
-  scope                = azurerm_linux_virtual_machine.vm
+  scope                = azurerm_linux_virtual_machine.vm.id
   role_definition_name = "Virtual Machine Administrator Login"
   principal_id         = "3e9b021e-9759-47f3-88af-ee43bfb39f55"
 }
