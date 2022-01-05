@@ -124,6 +124,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
     azurerm_network_interface.nic.id,
   ]
 
+  identity {
+    type = SystemAssigned
+  }
   admin_ssh_key {
     username   = var.admin_user
     public_key = file("${var.pubkeylocation}")
@@ -139,11 +142,27 @@ resource "azurerm_linux_virtual_machine" "vm" {
     publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-focal"
     sku       = "20_04-lts"
-    version   = "20.04.202109080"
+    version   = "20.04.202201040"
   }
 
   custom_data = data.template_cloudinit_config.config.rendered
 
   tags = var.tags
 
+}
+
+resource "azurerm_virtual_machine_extension" "aadlinux" {
+  name                       = "AADLoginForLinux"
+  virtual_machine_id         = azurerm_linux_virtual_machine.vm.id
+  publisher                  = "Microsoft.Azure.ActiveDirectory.LinuxSSH"
+  type                       = "AADLoginForLinux"
+  type_handler_version       = "1.0"
+  auto_upgrade_minor_version = true
+}
+
+
+resource "azurerm_role_assignment" "vmcaks" {
+  scope                = azurerm_linux_virtual_machine.vm
+  role_definition_name = "Virtual Machine Administrator Login"
+  principal_id         = "3e9b021e-9759-47f3-88af-ee43bfb39f55"
 }
