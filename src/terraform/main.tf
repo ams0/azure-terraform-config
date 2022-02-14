@@ -158,7 +158,7 @@ resource "azurerm_managed_disk" "prometheus" {
 
 resource "azurerm_management_lock" "prometheus" {
   name       = "prometheus"
-  scope      = azurerm_managed_disk.prometheus.id = 
+  scope      = azurerm_managed_disk.prometheus.id
   lock_level = "CanNotDelete"
   notes      = "Prometheus state"
 }
