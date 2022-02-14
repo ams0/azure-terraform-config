@@ -34,6 +34,8 @@ resource "azurerm_resource_group" "aks" {
   tags = var.tags
 }
 
+
+
 resource "azurerm_ssh_public_key" "pubkey" {
   name                = "pubkey"
   resource_group_name = azurerm_resource_group.resources.name
@@ -152,6 +154,13 @@ resource "azurerm_managed_disk" "prometheus" {
 
   tags = var.tags
 
+}
+
+resource "azurerm_management_lock" "prometheus" {
+  name       = "prometheus"
+  scope      = azurerm_managed_disk.prometheus.id = 
+  lock_level = "CanNotDelete"
+  notes      = "Prometheus state"
 }
 
 resource "azurerm_managed_disk" "loki" {
