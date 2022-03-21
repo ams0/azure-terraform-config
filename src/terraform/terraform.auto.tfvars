@@ -20,7 +20,7 @@ home_prefix = ["192.168.178.0/24"]
 zones = [
   { zone_name = "k8s.computer"
     records = {
-      "home" = ["143.177.174.222"],
+      "home" = "[var.home_ip]",
       #      "xxx" = ["1.1.1.1"]
     }
   },
