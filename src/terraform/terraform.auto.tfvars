@@ -8,7 +8,7 @@ pubkey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIOxg+goSYoCIND3IIAjPoPGr7gsux9O
 #wheter to deploy monitoring vm
 monitoring_vm = false
 #wheter to deploy aks cluster
-aks1          = false
+aks1 = false
 
 storage_name = "storeme"
 
@@ -20,13 +20,13 @@ home_prefix = ["192.168.178.0/24"]
 zones = [
   { zone_name = "k8s.computer"
     records = {
-#      "www" = ["8.8.8.8"],
-#      "xxx" = ["1.1.1.1"]
+      "home" = [var.home_prefix],
+      #      "xxx" = ["1.1.1.1"]
     }
   },
   { zone_name = "cloudnative.computer"
     records = {
-#      "yyy" = ["4.4.4.4"]
+      #      "yyy" = ["4.4.4.4"]
     }
   },
 
