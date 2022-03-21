@@ -4,11 +4,32 @@ variable "tags" {
 variable "resources_rg_name" {
   type        = string
   description = "The name of the RG to host resources"
+  default     = "resources"
 }
 
 variable "resources_rg_location" {
   type        = string
   description = "The location of the RG to host resources"
+  default     = "westeurope"
+
+}
+
+variable "monitoring_rg_location" {
+  type        = string
+  description = "The location of the RG to host resources"
+  default     = "westeurope"
+}
+
+variable "monitoring_rg_name" {
+  type        = string
+  description = "The location of the RG to host resources"
+  default     = "monitoring"
+}
+
+variable "logws_name" {
+  type        = string
+  description = "The name of the Log Analytics workspace"
+  default     = "logws"
 }
 
 variable "monitoring_vm" {

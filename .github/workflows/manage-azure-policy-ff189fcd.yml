@@ -1,0 +1,32 @@
+name: manage-azure-policy-ff189fcd
+on:
+  workflow_dispatch:
+    inputs:
+      remarks:
+        description: 'Reason for triggering the workflow run'
+        required: false
+        default: 'Updating Azure Policies'
+
+
+## Uncomment the following if you wish to automatically trigger workflow run with every commit
+#
+#  push:
+#    paths:
+#      - 'src/policies/initiatives/Kubernetes_cluster_pod_security_baseline_standards_for_Linux-based_workloads_a8640138-9b0a-4a28-b8cb-1666c838647d/**'
+#      - .github/workflows/manage-azure-policy-ff189fcd.yml
+jobs:
+  apply-azure-policy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS_ff189fcd}}
+        allow-no-subscriptions: true
+    - name: Create or Update Azure Policies
+      uses: azure/manage-azure-policy@v0
+      with:
+        paths: |
+          src/policies/initiatives/Kubernetes_cluster_pod_security_baseline_standards_for_Linux-based_workloads_a8640138-9b0a-4a28-b8cb-1666c838647d/**

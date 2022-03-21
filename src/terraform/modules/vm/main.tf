@@ -124,6 +124,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
     azurerm_network_interface.nic.id,
   ]
 
+  identity {
+    type = "SystemAssigned"
+  }
   admin_ssh_key {
     username   = var.admin_user
     public_key = file("${var.pubkeylocation}")
@@ -139,11 +142,27 @@ resource "azurerm_linux_virtual_machine" "vm" {
     publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-focal"
     sku       = "20_04-lts"
-    version   = "20.04.202109080"
+    version   = "20.04.202201040"
   }
 
   custom_data = data.template_cloudinit_config.config.rendered
 
   tags = var.tags
 
+}
+
+resource "azurerm_virtual_machine_extension" "aadsshlinux" {
+  name                       = "AADSSHLoginForLinux"
+  virtual_machine_id         = azurerm_linux_virtual_machine.vm.id
+  publisher                  = "Microsoft.Azure.ActiveDirectory"
+  type                       = "AADSSHLoginForLinux"
+  type_handler_version       = "1.0"
+  auto_upgrade_minor_version = true
+}
+
+# az ssh vm -n monitoring -g vms --port 4444 (if you are part of the sshlinux AAD group)
+resource "azurerm_role_assignment" "vmadmin" {
+  scope                = azurerm_linux_virtual_machine.vm.id
+  role_definition_name = "Virtual Machine Administrator Login"
+  principal_id         = "b46e5608-feca-4afc-8c46-832d5bbe6748" #sshlinux AAD group in 12c.. tenant
 }
