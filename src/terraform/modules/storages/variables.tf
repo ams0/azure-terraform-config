@@ -10,7 +10,7 @@ variable "environment" {
 
 variable "app_name" {
   type        = string
-  description = "Application name of IFRS project"
+  description = "Application name of the project"
   default     = "aks"
 }
 

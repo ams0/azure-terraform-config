@@ -17,6 +17,9 @@ variable "monitoring_vm" {
   default     = true
 }
 
+variable "zones" {
+}
+
 variable "aks1" {
   type        = string
   description = "Deploy monitoring VM"

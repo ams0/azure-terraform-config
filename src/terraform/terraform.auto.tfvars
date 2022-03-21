@@ -16,6 +16,21 @@ loki_disk_size       = 10
 
 home_prefix = ["192.168.178.0/24"]
 
+zones = [
+  { zone_name = "k8s.computer"
+    records = {
+#      "www" = ["8.8.8.8"],
+#      "xxx" = ["1.1.1.1"]
+    }
+  },
+  { zone_name = "cloudnative.computer"
+    records = {
+#      "yyy" = ["4.4.4.4"]
+    }
+  },
+
+]
+
 vnets = [
   {
     vnet_name     = "k8svnet"

@@ -142,6 +142,18 @@ resource "azurerm_role_assignment" "dns" {
   principal_id         = azurerm_user_assigned_identity.aksnodepool.principal_id
 }
 
+module "dns" {
+  source = "./modules/dns"
+  count  = length(var.zones)
+
+  resource_group_name = data.azurerm_resource_group.dns.name
+
+  zone_name = var.zones[count.index].zone_name
+  records   = var.zones[count.index].records
+  tags      = var.tags
+}
+
+
 resource "azurerm_managed_disk" "prometheus" {
   name                 = "prometheus-metrics"
   resource_group_name  = azurerm_resource_group.resources.name
