@@ -1,3 +1,6 @@
+variable "checkly_api_key" {}
+variable "checkly_account_id" {}
+
 # specify the Checkly provider
 terraform {
   required_providers {
