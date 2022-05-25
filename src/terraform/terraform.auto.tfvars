@@ -43,6 +43,11 @@ vnets = [
         service_endpoints = []
       },
       {
+        name              = "bastion"
+        prefix            = "172.20.2.0/24"
+        service_endpoints = []
+      },
+      {
         name              = "VMs"
         prefix            = "172.20.10.0/24"
         service_endpoints = []
