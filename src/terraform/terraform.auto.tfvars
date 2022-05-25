@@ -43,11 +43,6 @@ vnets = [
         service_endpoints = []
       },
       {
-        name              = "bastion"
-        prefix            = "172.20.254.0/24"
-        service_endpoints = []
-      },
-      {
         name              = "VMs"
         prefix            = "172.20.10.0/24"
         service_endpoints = []
@@ -87,7 +82,12 @@ vnets = [
         name              = "aks6"
         prefix            = "172.20.16.0/24"
         service_endpoints = ["Microsoft.Storage"]
-      }
+      },
+      {
+        name              = "bation"
+        prefix            = "172.20.254.0/24"
+        service_endpoints = []
+      },
     ]
   }
 ]
