@@ -44,7 +44,7 @@ vnets = [
       },
       {
         name              = "bastion"
-        prefix            = "172.20.2.0/24"
+        prefix            = "172.20.254.0/24"
         service_endpoints = []
       },
       {
