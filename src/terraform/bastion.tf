@@ -13,7 +13,7 @@ resource "azurerm_bastion_host" "k8s-bastion" {
 
   ip_configuration {
     name                 = "k8s-bastion"
-    subnet_id            = azurerm_subnet.subnets["bastion"].id
+    subnet_id            = azurerm_subnet.subnets[9].id
     public_ip_address_id = azurerm_public_ip.bastion.id
   }
 }
