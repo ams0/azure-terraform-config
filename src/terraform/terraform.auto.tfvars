@@ -111,7 +111,12 @@ vnets = [
         name              = "aks6"
         prefix            = "172.20.16.0/24"
         service_endpoints = ["Microsoft.Storage"]
-      }
+      },
+      {
+        name              = "AzureBastionSubnet"
+        prefix            = "172.20.254.0/24"
+        service_endpoints = []
+      },
     ]
   }
 ]
