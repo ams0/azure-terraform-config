@@ -59,6 +59,47 @@ zones = [
       #      "yyy" = ["4.4.4.4"]
     }
   },
+  { zone_name = "vozza.me"
+    records = {
+      #      "yyy" = ["4.4.4.4"]
+    }
+  },
+  { zone_name = "radicallyopen.cloud"
+    records = {
+      #      "yyy" = ["4.4.4.4"]
+    }
+  },
+  { zone_name = "qubernetes.com"
+    records = {
+      #      "yyy" = ["4.4.4.4"]
+    }
+  },
+  { zone_name = "lovelace.engineering"
+    records = {
+      #      "yyy" = ["4.4.4.4"]
+    }
+  },
+  { zone_name = "k8sday.amsterdam"
+    records = {
+      #      "yyy" = ["4.4.4.4"]
+    }
+  },
+  { zone_name = "k8s.computer"
+    records = {
+      #      "yyy" = ["4.4.4.4"]
+    }
+  },
+  { zone_name = "cloudnative.computer"
+    records = {
+      #      "yyy" = ["4.4.4.4"]
+    }
+  },
+  { zone_name = "vozza.me"
+    records = {
+      #      "yyy" = ["4.4.4.4"]
+    }
+  },
+
 ]
 
 vnets = [
