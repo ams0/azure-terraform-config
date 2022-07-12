@@ -5,6 +5,7 @@ data "azurerm_resource_group" "rg" {
 resource "azurerm_dns_zone" "zone" {
   name                = var.zone_name
   resource_group_name = data.azurerm_resource_group.rg.name
+  tags = var.tags
 }
 
 resource "azurerm_dns_a_record" "arecord" {

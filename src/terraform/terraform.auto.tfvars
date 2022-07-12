@@ -29,7 +29,36 @@ zones = [
       #      "yyy" = ["4.4.4.4"]
     }
   },
-
+  { zone_name = "kubeis.fun"
+    records = {
+      #      "yyy" = ["4.4.4.4"]
+    }
+  },
+  { zone_name = "k8sis.fun"
+    records = {
+      #      "yyy" = ["4.4.4.4"]
+    }
+  },
+  { zone_name = "managednomad.io"
+    records = {
+      #      "yyy" = ["4.4.4.4"]
+    }
+  },
+  { zone_name = "100daysofcloudnative.com"
+    records = {
+      #      "yyy" = ["4.4.4.4"]
+    }
+  },
+  { zone_name = "100daysofcloudnative.io"
+    records = {
+      #      "yyy" = ["4.4.4.4"]
+    }
+  },
+  { zone_name = "alessandrovozza.com"
+    records = {
+      #      "yyy" = ["4.4.4.4"]
+    }
+  },
 ]
 
 vnets = [

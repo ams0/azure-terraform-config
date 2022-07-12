@@ -90,27 +90,13 @@ resource "azurerm_dns_a_record" "dnsrecord" {
   records             = [azurerm_public_ip.pubip.ip_address]
 }
 
-data "template_file" "cloudconfig" {
-  template = file("${path.module}${var.cloud_init_path}")
-
-  vars = {
-    ssh_port    = var.ssh_port
-    docker_user = "adminuser"
-    #    timezone = var.timezone
-    #    password = data.azurerm_key_vault_secret.vaultsecret.value
-    #    tpot_flavor = var.tpot_flavor
-    #    web_user = var.web_user
-    #    web_password = var.web_password
-  }
-}
-
-data "template_cloudinit_config" "config" {
+data "cloudinit_config" "config" {
   gzip          = true
   base64_encode = true
 
   part {
     content_type = "text/cloud-config"
-    content      = data.template_file.cloudconfig.rendered
+    content      = templatefile("${path.module}${var.cloud_init_path}", { ssh_port = var.ssh_port, docker_user = "adminuser" })
   }
 }
 
@@ -145,7 +131,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
     version   = "20.04.202201040"
   }
 
-  custom_data = data.template_cloudinit_config.config.rendered
+  custom_data = data.cloudinit_config.config.rendered
 
   tags = var.tags
 
