@@ -5,6 +5,7 @@ module "dns" {
   resource_group_name = data.azurerm_resource_group.dns.name
 
   zone_name = var.zones[count.index].zone_name
-  records   = var.zones[count.index].records
+  arecords   = var.zones[count.index].arecords
+  mxrecords   = var.zones[count.index].mxrecords
   tags      = var.tags
 }
