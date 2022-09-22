@@ -11,6 +11,10 @@ variable "zone_name" {
   description = "The name of the zone"
 }
 
-variable "records" {
+variable "arecords" {
+
+}
+
+variable "mxrecords" {
 
 }
