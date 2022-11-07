@@ -39,4 +39,15 @@ resource "checkly_check" "nas" {
       target     = "200"
     }
   }
+
+  alert_channel_subscription {
+    channel_id = "52211"
+    activated  = true
+  }
+
+  alert_channel_subscription {
+    channel_id = "52213"
+    activated  = true
+  }
+
 }
