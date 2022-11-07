@@ -21,11 +21,6 @@ resource "azurerm_kubernetes_cluster" "aks1" {
     vnet_subnet_id = var.vnet_subnet_id
   }
 
-  addon_profile {
-    oms_agent {
-      enabled = false
-    }
-  }
   kubelet_identity {
     client_id                 = var.nodepool_client_id
     object_id                 = var.nodepool_object_id
