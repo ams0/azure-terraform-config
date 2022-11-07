@@ -1,6 +1,6 @@
-variable "workspace_name" {
+variable "storage_name" {
   type        = string
-  description = "The name of the Log Analytics workspace"
+  description = "The name of the Storage Account"
   default     = "logws"
 }
 
@@ -9,9 +9,10 @@ variable "tags" {
 }
 
 variable "location" {
-
 }
 
 variable "resource_group_name" {
+}
 
+variable "home_ip" {
 }

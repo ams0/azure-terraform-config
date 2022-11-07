@@ -1,7 +1,7 @@
 module "workspace" {
   source = "avinor/log-analytics/azurerm"
 
-  name                = var.logws_name
+  name                = var.workspace_name
   resource_group_name = var.resource_group_name
   location            = var.location
 
@@ -47,17 +47,4 @@ module "workspace" {
       product       = "OMSGallery/Security",
     },
   ]
-}
-
-module "monitoringvm" {
-  source = "./modules/vm"
-
-  count = var.monitoring_vm ? 1 : 0
-
-  rg_name     = "vms"
-  rg_location = var.resources_rg_location
-
-  vm_name = "monitoring"
-
-  tags = var.tags
 }

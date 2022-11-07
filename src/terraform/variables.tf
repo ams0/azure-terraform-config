@@ -25,3 +25,24 @@ variable "vnets" {
     }))
   }))
 }
+
+variable "home_ip" {
+  type        = string
+  description = "My home IP (set in Terraform Cloud)"
+}
+
+variable "home_prefix" {
+  description = "My home prefix"
+}
+
+variable "pubkey" {
+  type        = string
+  description = "SSH Public key"
+}
+
+variable "storage_name" {
+  type        = string
+  description = "The name of the storage account"
+  default     = "mainstorage"
+}
+  
