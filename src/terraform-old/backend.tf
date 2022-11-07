@@ -1,7 +1,7 @@
 terraform {
   backend "remote" {
     hostname     = "app.terraform.io"
-    organization = "lovelace"
+    organization = "ams0"
     workspaces {
       name = "azure-terraform-config"
     }
