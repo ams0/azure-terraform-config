@@ -123,14 +123,13 @@ resource "azurerm_container_registry" "acr" {
   location            = azurerm_resource_group.resources.location
   sku                 = "Premium"
   admin_enabled       = false
-  georeplications = [
-    {
+  georeplications =     {
       location                  = "West US 2"
       zone_redundancy_enabled   = false
       regional_endpoint_enabled = true
       tags                      = var.tags
     }
-  ]
+  
   tags = var.tags
 
 }
