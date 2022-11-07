@@ -7,12 +7,13 @@ data "azurerm_resource_group" "resources" {
 }
 
 resource "azurerm_kubernetes_cluster" "aks1" {
-  name                = var.dns_prefix
-  location            = data.azurerm_resource_group.resources.location
-  resource_group_name = data.azurerm_resource_group.aks.name
-  dns_prefix          = var.dns_prefix
-  kubernetes_version  = var.kubernetes_version
-
+  name                      = var.dns_prefix
+  location                  = data.azurerm_resource_group.resources.location
+  resource_group_name       = data.azurerm_resource_group.aks.name
+  dns_prefix                = var.dns_prefix
+  kubernetes_version        = var.kubernetes_version
+  workload_identity_enabled = true
+  oidc_issuer_enabled       = true
   default_node_pool {
     name       = "system"
     node_count = var.default_pool_vm_count
@@ -27,8 +28,8 @@ resource "azurerm_kubernetes_cluster" "aks1" {
     user_assigned_identity_id = var.nodepool_user_assigned_identity_id
   }
   identity {
-    type                      = "UserAssigned"
-    user_assigned_identity_id = var.user_assigned_identity_id
+    type         = "UserAssigned"
+    identity_ids = [var.user_assigned_identity_id]
   }
 
   network_profile {
