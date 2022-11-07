@@ -38,8 +38,8 @@ variable "monitoring_vm" {
   default     = true
 }
 
-variable "zones" {
-}
+# variable "zones" {
+# }
 
 variable "aks1" {
   type        = string
