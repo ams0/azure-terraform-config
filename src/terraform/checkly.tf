@@ -22,7 +22,7 @@ resource "checkly_check" "nas" {
   type                      = "API"
   activated                 = true
   should_fail               = false
-  frequency                 = 10
+  frequency                 = 1
   double_check              = true
   use_global_alert_settings = true
 
