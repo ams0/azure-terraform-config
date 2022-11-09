@@ -45,4 +45,20 @@ variable "storage_name" {
   description = "The name of the storage account"
   default     = "mainstorage"
 }
-  
+
+variable "acr_name" {
+  type        = string
+  description = "ACR name"
+}
+
+variable "acr_sku" {
+  type        = string
+  description = "ACR SKU"
+  default     = "Standard"
+}
+
+# variable "acr_alternate_location" {
+#   type        = string
+#   description = "ACR alternate location"
+#   default     = "West US 2"
+# }
